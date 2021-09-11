@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -17,13 +20,19 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NotBlank(message = "O campo nome não pode estar vazio!") // não pode ser vazio e nem ter espaço em branco
 	private String nome;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataNascimento;
 
+	@CPF(message = "O campo CPF não pode estar vazio e precisa estar com a formatação válida!")
 	private String cpf;
+	
+	@NotBlank(message = "O campo email não pode estar vazio!")
+	@Email(message = "O campo 'email' precisa estar com o formato correto!")
 	private String email;
+	
 	private String telefone;
 
 	@Deprecated
